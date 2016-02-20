@@ -61,7 +61,6 @@ RUN ./configure \
 	--param=ssp-buffer-size=4 -Wformat -Werror=format-security' \
 	--with-ld-opt=-Wl,-z,relro \
 	--with-ipv6 \
-	--with-luajit \
 	--with-openssl=/usr/src/nginx/$OPENSSL_VERSION
 
 RUN make && make install
