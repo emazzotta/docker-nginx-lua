@@ -8,6 +8,7 @@ ENV LUA_JIT=LuaJIT-2.0.4
 ENV LUA=0.10.0
 ENV NGINX_DEV=0.2.19
 ENV HEADERS_MORE=0.261
+ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
 RUN apt-get update \
     && apt-get install -y wget \
