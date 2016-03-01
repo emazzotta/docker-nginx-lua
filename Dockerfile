@@ -8,10 +8,17 @@ ENV LUA_JIT_VERSION=2.0.4
 ENV LUA_VERSION=0.10.0
 ENV NGINX_DEV_VERSION=0.2.19
 ENV HEADERS_MORE_VERSION=0.261
+
+ENV NGINX_DIR=/usr/src/nginx
+ENV GH=https://github.com
+
+ENV HEADERS_MORE=$NGINX_DIR/headers-more-nginx-module-$HEADERS_MORE_VERSION
+ENV NGX_DEV=$NGINX_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
+ENV LUA_MOD=$NGINX_DIR/lua-nginx-module-$LUA_VERSION
+
 ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
-RUN apt-get update && \
-    apt-get install -qqy \ 
+RUN apt-get update && apt-get install -qqy \ 
     wget \
     build-essential \
     linux-kernel-headers \
@@ -19,38 +26,39 @@ RUN apt-get update && \
     libpcre3-dev \
     zlib1g-dev
 
-RUN mkdir -p /usr/src/nginx
-WORKDIR /usr/src/nginx
+RUN mkdir -p $NGINX_DIR
+WORKDIR $NGINX_DIR
 
 RUN wget http://luajit.org/download/LuaJIT-$LUA_JIT_VERSION.tar.gz && \
-    tar -xzvf LuaJIT-$LUA_JIT_VERSION.tar.gz && \
-    cd /usr/src/nginx/LuaJIT-$LUA_JIT_VERSION && \
+    tar xzvf LuaJIT-$LUA_JIT_VERSION.tar.gz && \
+    cd $NGINX_DIR/LuaJIT-$LUA_JIT_VERSION && \
     make && make install
 
-RUN wget http://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz -P /usr/src/nginx/
-RUN tar xvzf openssl-$OPENSSL_VERSION.tar.gz
+RUN wget https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz \
+    -P $NGINX_DIR/ && \
+    tar xzvf openssl-$OPENSSL_VERSION.tar.gz
 
-RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -P /usr/src/nginx/
-RUN tar xvzf nginx-$NGINX_VERSION.tar.gz --strip-components=1
+RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
+    -P $NGINX_DIR/ && \
+    tar xzvf nginx-$NGINX_VERSION.tar.gz --strip-components=1
 
-RUN wget https://github.com/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz -O headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz
-RUN tar -xzvf headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz
-ENV HEADERS_MORE=/usr/src/nginx/headers-more-nginx-module-$HEADERS_MORE_VERSION
+RUN wget $GH/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz \
+    -O headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz && \
+    tar xzvf headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz
 
-RUN wget https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz -O ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz
-RUN tar -xzvf ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz
-ENV NGX_DEV=/usr/src/nginx/ngx_devel_kit-$NGINX_DEV_VERSION
+RUN wget $GH/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz \
+    -O ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz && \
+    tar xzvf ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz
 
-RUN wget https://github.com/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz
-RUN tar -xzvf v$LUA_VERSION.tar.gz
-ENV LUA_MOD=/usr/src/nginx/lua-nginx-module-$LUA_VERSION
+RUN wget $GH/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz && \
+    tar xzvf v$LUA_VERSION.tar.gz
 
 RUN ./configure \
  --prefix=/etc/nginx \
  --add-module=$HEADERS_MORE \
  --add-module=$NGX_DEV \
  --add-module=$LUA_MOD \
- --with-openssl=/usr/src/nginx/openssl-$OPENSSL_VERSION \
+ --with-openssl=$NGINX_DIR/openssl-$OPENSSL_VERSION \
  --with-ipv6 \
  --with-http_v2_module \
  --with-http_ssl_module \
