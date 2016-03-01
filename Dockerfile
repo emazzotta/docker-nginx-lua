@@ -10,8 +10,7 @@ ENV NGINX_DEV_VERSION=0.2.19
 ENV HEADERS_MORE_VERSION=0.261
 ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
-RUN apt-get update && apt-get install -qqy \
-    wget \
+RUN apt-get update && apt-get install -y wget \
     build-essential \
     linux-kernel-headers \
     libpcre3 \
