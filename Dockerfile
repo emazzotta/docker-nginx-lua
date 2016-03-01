@@ -34,7 +34,7 @@ RUN tar xvzf nginx-$NGINX_VERSION.tar.gz --strip-components=1
 
 RUN wget https://github.com/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz -O headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz
 RUN tar -xzvf headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz
-ENV HEADERS_MORE_VERSION=/usr/src/nginx/headers-more-nginx-module-$HEADERS_MORE_VERSION
+ENV HEADERS_MORE=/usr/src/nginx/headers-more-nginx-module-$HEADERS_MORE_VERSION
 
 RUN wget https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz -O ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz
 RUN tar -xzvf ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz
@@ -42,13 +42,13 @@ ENV NGX_DEV=/usr/src/nginx/ngx_devel_kit-$NGINX_DEV_VERSION
 
 RUN wget https://github.com/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz
 RUN tar -xzvf v$LUA_VERSION.tar.gz
-ENV LUA_VERSION_MOD=/usr/src/nginx/lua-nginx-module-$LUA_VERSION
+ENV LUA_MOD=/usr/src/nginx/lua-nginx-module-$LUA_VERSION
 
 RUN ./configure \
  --prefix=/etc/nginx \
- --add-module=$HEADERS_MORE_VERSION \
+ --add-module=$HEADERS_MORE \
  --add-module=$NGX_DEV \
- --add-module=$LUA_VERSION_MOD \
+ --add-module=$LUA_MOD \
  --with-openssl=/usr/src/nginx/openssl-$OPENSSL_VERSION \
  --with-ipv6 \
  --with-http_v2_module \
