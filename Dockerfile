@@ -67,9 +67,8 @@ RUN ./configure \
  --with-mail \
  --with-mail_ssl_module \
  --with-file-aio \
- --with-cc-opt='-g -O2 -fstack-protector \
+ --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security' \
  --with-ld-opt=-Wl,-z,relro \
- --param=ssp-buffer-size=4 -Wformat -Werror=format-security' \
  --sbin-path=/usr/sbin/nginx \
  --conf-path=/etc/nginx/nginx.conf \
  --error-log-path=/var/log/nginx/error.log \
