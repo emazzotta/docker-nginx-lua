@@ -21,12 +21,10 @@ RUN apt-get update \
 RUN mkdir -p /usr/src/nginx
 WORKDIR /usr/src/nginx
 
-RUN wget http://luajit.org/download/$LUA_JIT.tar.gz
-RUN tar -xzvf $LUA_JIT.tar.gz
-WORKDIR /usr/src/nginx/$LUA_JIT
-RUN make && make install
-
-WORKDIR /usr/src/nginx
+RUN wget http://luajit.org/download/$LUA_JIT.tar.gz && \
+    tar -xzvf $LUA_JIT.tar.gz && \
+    cd /usr/src/nginx/$LUA_JIT && \
+    make && make install
 
 RUN wget http://www.openssl.org/source/$OPENSSL_VERSION.tar.gz -P /usr/src/nginx/
 RUN tar xvzf $OPENSSL_VERSION.tar.gz
