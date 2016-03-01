@@ -3,15 +3,16 @@ FROM debian:jessie
 MAINTAINER Emanuele Mazzotta <hello@mazzotta.me>
 
 ENV NGINX_VERSION=1.9.10
-ENV OPENSSL_VERSION=1.0.2f
+ENV OPENSSL_VERSION=1.0.2g
 ENV LUA_JIT_VERSION=2.0.4
 ENV LUA_VERSION=0.10.0
 ENV NGINX_DEV_VERSION=0.2.19
 ENV HEADERS_MORE_VERSION=0.261
 ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
-RUN apt-get update \
-    && apt-get install -y wget \
+RUN apt-get update && \
+    apt-get install -qqy \ 
+    wget \
     build-essential \
     linux-kernel-headers \
     libpcre3 \
