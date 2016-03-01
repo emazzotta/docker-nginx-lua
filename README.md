@@ -19,7 +19,7 @@ http {
 
 ### Lua
 
-In your site configuration for automatic language based redirecting.
+In your site configuration e.g. for automatic language based redirecting.
 
 ```
 server {   
