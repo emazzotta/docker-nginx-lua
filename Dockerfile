@@ -12,11 +12,11 @@ ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
 RUN apt-get update \
     && apt-get install -y wget \
-    && build-essential \
-    && linux-kernel-headers \
-    && libpcre3 \
-    && libpcre3-dev \
-    && zlib1g-dev
+    build-essential \
+    linux-kernel-headers \
+    libpcre3 \
+    libpcre3-dev \
+    zlib1g-dev
 
 RUN mkdir -p /usr/src/nginx
 WORKDIR /usr/src/nginx
