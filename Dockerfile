@@ -9,12 +9,13 @@ ENV LUA_VERSION=0.10.0
 ENV NGINX_DEV_VERSION=0.2.19
 ENV HEADERS_MORE_VERSION=0.261
 
-ENV NGINX_DIR=/usr/src/nginx
+ENV NGINX_TEMP_DIR=/usr/src/nginx
+ENV NGINX_DIR=/etc/nginx
 ENV GH=https://github.com
 
-ENV HEADERS_MORE=$NGINX_DIR/headers-more-nginx-module-$HEADERS_MORE_VERSION
-ENV NGX_DEV=$NGINX_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
-ENV LUA_MOD=$NGINX_DIR/lua-nginx-module-$LUA_VERSION
+ENV HEADERS_MORE=$NGINX_TEMP_DIR/headers-more-nginx-module-$HEADERS_MORE_VERSION
+ENV NGX_DEV=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
+ENV LUA_MOD=$NGINX_TEMP_DIR/lua-nginx-module-$LUA_VERSION
 
 ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
@@ -26,20 +27,20 @@ RUN apt-get update && apt-get install -qqy \
     libpcre3-dev \
     zlib1g-dev
 
-RUN mkdir -p $NGINX_DIR
-WORKDIR $NGINX_DIR
+RUN mkdir -p $NGINX_TEMP_DIR
+WORKDIR $NGINX_TEMP_DIR
 
 RUN wget http://luajit.org/download/LuaJIT-$LUA_JIT_VERSION.tar.gz && \
     tar xzvf LuaJIT-$LUA_JIT_VERSION.tar.gz && \
-    cd $NGINX_DIR/LuaJIT-$LUA_JIT_VERSION && \
+    cd $NGINX_TEMP_DIR/LuaJIT-$LUA_JIT_VERSION && \
     make && make install
 
 RUN wget https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz \
-    -P $NGINX_DIR/ && \
+    -P $NGINX_TEMP_DIR/ && \
     tar xzvf openssl-$OPENSSL_VERSION.tar.gz
 
 RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
-    -P $NGINX_DIR/ && \
+    -P $NGINX_TEMP_DIR/ && \
     tar xzvf nginx-$NGINX_VERSION.tar.gz --strip-components=1
 
 RUN wget $GH/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz \
@@ -54,11 +55,11 @@ RUN wget $GH/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz && \
     tar xzvf v$LUA_VERSION.tar.gz
 
 RUN ./configure \
- --prefix=/etc/nginx \
+ --prefix=$NGINX_DIR \
  --add-module=$HEADERS_MORE \
  --add-module=$NGX_DEV \
  --add-module=$LUA_MOD \
- --with-openssl=$NGINX_DIR/openssl-$OPENSSL_VERSION \
+ --with-openssl=$NGINX_TEMP_DIR/openssl-$OPENSSL_VERSION \
  --with-ipv6 \
  --with-http_v2_module \
  --with-http_ssl_module \
@@ -94,6 +95,9 @@ RUN ./configure \
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
+
+WORKDIR $NGINX_DIR
+RUN rm -rf $NGINX_TEMP_DIR
 
 VOLUME ["/var/cache/nginx"]
 

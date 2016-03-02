@@ -1,8 +1,6 @@
 [![License](http://img.shields.io/:license-mit-brightgreen.svg)](http://doge.mit-license.org)
-[![Docker Stars](https://img.shields.io/docker/stars/emazzotta/docker-nginx-more-headers-lua.svg)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-more-headers-lua.svg)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
 [![Docker Image Size](https://img.shields.io/imagelayers/image-size/emazzotta/docker-nginx-more-headers-lua/latest.svg)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
-[![Docker Image Layers](https://img.shields.io/imagelayers/layers/emazzotta/docker-nginx-more-headers-lua/latest.svg)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
 
 # Docker Nginx More Headers + Lua
 
