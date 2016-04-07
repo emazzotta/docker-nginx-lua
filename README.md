@@ -1,11 +1,11 @@
 [![License](http://img.shields.io/:license-mit-brightgreen.svg)](http://doge.mit-license.org)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-more-headers-lua.svg)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
-[![Docker Image Size](https://img.shields.io/imagelayers/image-size/emazzotta/docker-nginx-more-headers-lua/latest.svg)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
 
 # Docker Nginx More Headers + Lua
 
 A Docker project for a recent version of the Nginx webserver and the module `more_set_headers` to specify custom headers such as a server name like `1337-server` instead of `nginx` or `apache`.
 This also contains LuaJIT so that lua can be used in nginx configurations.
+Another thing that this nginx build contains is [Google's ngx_pagespeed module](https://github.com/pagespeed/ngx_pagespeed)
 
 Link to Dockerhub: https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/
 
@@ -42,6 +42,19 @@ server {
         end
         ngx.redirect("/en/")';
     }
+    ...
+}
+```
+
+### Pagespeed
+
+```
+server {
+    ...
+    pagespeed on;
+    pagespeed FileCachePath /var/cache/nginx;
+    pagespeed XHeaderValue "Pagespeed";
+    pagespeed RewriteLevel CoreFilters;
     ...
 }
 ```
