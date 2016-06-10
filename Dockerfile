@@ -2,22 +2,21 @@ FROM debian:jessie
 
 MAINTAINER Emanuele Mazzotta <hello@mazzotta.me>
 
-ENV NGINX_VERSION=1.9.10
+ENV NGINX_VERSION=1.10.1
 ENV OPENSSL_VERSION=1.0.2h
 ENV LUA_JIT_VERSION=2.0.4
 ENV LUA_VERSION=0.10.0
-ENV NGINX_DEV_VERSION=0.2.19
-ENV HEADERS_MORE_VERSION=0.261
-ENV NPS_VERSION=1.11.33.0
+ENV NGINX_DEV_VERSION=0.3.0
+ENV HEADERS_MORE_VERSION=0.30
+ENV GOOGLE_PAGESPEED_VERSION=1.11.33.2
 
 ENV NGINX_TEMP_DIR=/usr/src/nginx
 ENV NGINX_DIR=/etc/nginx
-ENV GH=https://github.com
 
 ENV HEADERS_MORE=$NGINX_TEMP_DIR/headers-more-nginx-module-$HEADERS_MORE_VERSION
 ENV NGX_DEV=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
 ENV LUA_MOD=$NGINX_TEMP_DIR/lua-nginx-module-$LUA_VERSION
-ENV GOOGLE_PAGESPEED=$NGINX_TEMP_DIR/ngx_pagespeed-$NPS_VERSION-beta
+ENV GOOGLE_PAGESPEED=$NGINX_TEMP_DIR/ngx_pagespeed-$GOOGLE_PAGESPEED_VERSION-beta
 
 ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 
@@ -45,25 +44,25 @@ RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
     -P $NGINX_TEMP_DIR/ && \
     tar xzvf nginx-$NGINX_VERSION.tar.gz --strip-components=1
 
-RUN wget $GH/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz \
+RUN wget https://github.com/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz \
     -O headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz && \
     tar xzvf headers-more-nginx-module-v$HEADERS_MORE_VERSION.tar.gz
 
-RUN wget $GH/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz \
+RUN wget https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz \
     -O ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz && \
     tar xzvf ngx_devel_kit-v$NGINX_DEV_VERSION.tar.gz
 
-RUN wget $GH/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz && \
+RUN wget https://github.com/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz && \
     tar xzvf v$LUA_VERSION.tar.gz
 
-RUN wget $GH/pagespeed/ngx_pagespeed/archive/v$NPS_VERSION-beta.tar.gz \
-    -O ngx_pagespeed-$NPS_VERSION-beta.tar.gz && \
-    tar xzvf ngx_pagespeed-$NPS_VERSION-beta.tar.gz && \
-    cd ngx_pagespeed-$NPS_VERSION-beta && \
-    wget https://dl.google.com/dl/page-speed/psol/$NPS_VERSION.tar.gz \
-    -O $NPS_VERSION.tar.gz && \
-    tar xzvf $NPS_VERSION.tar.gz && \
-    rm -f $NPS_VERSION.tar.gz
+RUN wget https://github.com/pagespeed/ngx_pagespeed/archive/v$GOOGLE_PAGESPEED_VERSION-beta.tar.gz \
+    -O ngx_pagespeed-$GOOGLE_PAGESPEED_VERSION-beta.tar.gz && \
+    tar xzvf ngx_pagespeed-$GOOGLE_PAGESPEED_VERSION-beta.tar.gz && \
+    cd ngx_pagespeed-$GOOGLE_PAGESPEED_VERSION-beta && \
+    wget https://dl.google.com/dl/page-speed/psol/$GOOGLE_PAGESPEED_VERSION.tar.gz \
+    -O $GOOGLE_PAGESPEED_VERSION.tar.gz && \
+    tar xzvf $GOOGLE_PAGESPEED_VERSION.tar.gz && \
+    rm -f $GOOGLE_PAGESPEED_VERSION.tar.gz
 
 RUN ./configure \
  --prefix=$NGINX_DIR \
