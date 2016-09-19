@@ -1,6 +1,7 @@
-[![build status](https://gitlab.com/emazzotta/docker-nginx-more-headers-lua/badges/master/build.svg)](https://gitlab.com/emazzotta/docker-nginx-more-headers-lua/commits/master)
+[![Build Status](https://gitlab.com/emazzotta/docker-nginx-more-headers-lua/badges/master/build.svg)](https://gitlab.com/emazzotta/docker-nginx-more-headers-lua/commits/master)
 [![License](http://img.shields.io/:license-mit-brightgreen.svg)](http://doge.mit-license.org)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-more-headers-lua.svg)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
+[![Docker Layers](https://images.microbadger.com/badges/image/emazzotta/docker-nginx-more-headers-lua.svg)](https://microbadger.com/images/emazzotta/docker-nginx-more-headers-lua "Microbadger Docker Layers")
 
 # Docker Nginx More Headers + Lua
 
