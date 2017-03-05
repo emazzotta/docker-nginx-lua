@@ -66,4 +66,5 @@ server {
 
 ## License
 
-See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
+[MIT License](LICENSE.md) © Emanuele Mazzotta
+
