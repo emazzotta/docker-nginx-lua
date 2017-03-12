@@ -110,6 +110,10 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 WORKDIR $NGINX_DIR
 RUN rm -rf $NGINX_TEMP_DIR
 
+ADD nginx.conf /etc/nginx/nginx.conf
+ADD mime.types /etc/nginx/mime.types
+RUN mkdir -p /etc/nginx/conf.d
+
 VOLUME ["/var/cache/nginx"]
 
 EXPOSE 80 443
