@@ -62,7 +62,7 @@ server {
 
 ## Author
 
-[Emanuele Mazzotta](mailto:hello@mazzotta.me?subject=Docker Nginx More Headers + Lua)
+[Emanuele Mazzotta](mailto:hello@mazzotta.me)
 
 ## License
 
