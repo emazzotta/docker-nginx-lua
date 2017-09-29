@@ -1,6 +1,6 @@
-[![License](http://img.shields.io/:license-mit-brightgreen.svg?style=flat-square)](http://doge.mit-license.org)
-[![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-more-headers-lua.svg?style=flat-square)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
-[![Docker Layers](https://images.microbadger.com/badges/image/emazzotta/docker-nginx-more-headers-lua.svg?style=flat-square)](https://microbadger.com/images/emazzotta/docker-nginx-more-headers-lua "Microbadger Docker Layers")
+[![License](http://img.shields.io/:license-mit-brightgreen.svg?style=flat)](http://doge.mit-license.org)
+[![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-more-headers-lua.svg?style=flat)](https://hub.docker.com/r/emazzotta/docker-nginx-more-headers-lua/)
+[![Docker Layers](https://images.microbadger.com/badges/image/emazzotta/docker-nginx-more-headers-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-more-headers-lua "Microbadger Docker Layers")
 
 # Docker Nginx More Headers + Lua
 
