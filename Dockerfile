@@ -15,7 +15,7 @@ ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
 # http://nginx.org/en/download.html
-ENV NGINX_VERSION=1.13.4
+ENV NGINX_VERSION=1.13.5
 # https://github.com/simpl/ngx_devel_kit/releases
 ENV NGINX_DEV_VERSION=0.3.0
 # http://luajit.org/download.html
