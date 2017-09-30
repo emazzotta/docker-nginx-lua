@@ -14,13 +14,20 @@ ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
+# http://nginx.org/en/download.html
 ENV NGINX_VERSION=1.13.3
+# https://github.com/simpl/ngx_devel_kit/releases
 ENV NGINX_DEV_VERSION=0.3.0
+# http://luajit.org/download.html
 ENV LUA_JIT_VERSION=2.0.5
+# https://github.com/openresty/lua-nginx-module/releases
 ENV LUA_VERSION=0.10.10
+# https://www.openssl.org/source/
 ENV OPENSSL_VERSION=1.0.2l
+# https://github.com/openresty/headers-more-nginx-module/releases
 ENV HEADERS_MORE_VERSION=0.32
-ENV GOOGLE_PAGESPEED_VERSION=1.12.34.2-stable
+# https://github.com/pagespeed/ngx_pagespeed/releases
+ENV GOOGLE_PAGESPEED_VERSION=1.12.34.3-stable
 
 ENV NGX_DEV_MODULE_PATH=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
 ENV LUAJIT_MODULE_PATH=$NGINX_TEMP_DIR/LuaJIT-$LUA_JIT_VERSION
