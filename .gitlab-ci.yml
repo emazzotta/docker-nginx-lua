@@ -4,5 +4,5 @@ build_image:
   - docker:dind
   script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
-    - docker build -t $DOCKER_REGISTRY/emazzotta/docker-nginx-more-headers-lua:$CI_BUILD_REF_NAME .
-    - docker push $DOCKER_REGISTRY/emazzotta/docker-nginx-more-headers-lua:$CI_BUILD_REF_NAME
+    - docker build -t $DOCKER_REGISTRY/emazzotta/docker-nginx-lua:$CI_BUILD_REF_NAME .
+    - docker push $DOCKER_REGISTRY/emazzotta/docker-nginx-lua:$CI_BUILD_REF_NAME
