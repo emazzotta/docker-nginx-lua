@@ -1,4 +1,4 @@
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://doge.mit-license.org)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](https://emanuelemazzotta.com/mit-license)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-lua.svg?style=flat)](https://hub.docker.com/r/emazzotta/docker-nginx-lua/)
 [![Docker Layers](https://images.microbadger.com/badges/image/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Layers")
 [![Docker Version Tag](https://images.microbadger.com/badges/version/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Info")
@@ -65,8 +65,4 @@ server {
 ## Author
 
 [Emanuele Mazzotta](mailto:hello@mazzotta.me)
-
-## License
-
-[MIT License](LICENSE.md) © Emanuele Mazzotta
 
