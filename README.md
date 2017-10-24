@@ -20,8 +20,6 @@ docker run -v my_conf_dir:/etc/nginx/conf.d -v /var/ngx_pagespeed_cache -p 80:80
 
 ### More Set Headers
 
-In your `nginx.conf`.
-
 ```
 http {
     ...
@@ -31,8 +29,6 @@ http {
 ```
 
 ### Lua
-
-In your site configuration e.g. for automatic language based redirecting.
 
 ```
 server {   
