@@ -13,7 +13,7 @@ Another module this nginx build contains is [Google's ngx_pagespeed module](http
 ## Usage
 
 ```bash
-docker run -v my_conf_dir:/etc/nginx/conf.d -v /var/ngx_pagespeed_cache -p 80:80 emazzotta/docker-nginx-lua
+docker run -v <my_conf_dir>:/etc/nginx/conf.d -v /var/ngx_pagespeed_cache -p 80:80 emazzotta/docker-nginx-lua
 ```
 
 ## Examples
