@@ -35,7 +35,7 @@ ENV NGINX_DEV_VERSION=0.3.0
 # http://luajit.org/download.html
 ENV LUA_JIT_VERSION=2.0.5
 # https://github.com/openresty/lua-nginx-module/releases
-ENV LUA_VERSION=0.10.10
+ENV LUA_VERSION=0.10.11
 # https://www.openssl.org/source/
 ENV OPENSSL_VERSION=1.0.2l
 # https://github.com/openresty/headers-more-nginx-module/releases
