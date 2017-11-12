@@ -39,7 +39,7 @@ ENV LUA_VERSION=0.10.11
 # https://www.openssl.org/source/
 ENV OPENSSL_VERSION=1.0.2l
 # https://github.com/openresty/headers-more-nginx-module/releases
-ENV HEADERS_MORE_VERSION=0.32
+ENV HEADERS_MORE_VERSION=0.33
 # https://github.com/pagespeed/ngx_pagespeed/releases
 ENV GOOGLE_PAGESPEED_VERSION=1.12.34.3-stable
 
