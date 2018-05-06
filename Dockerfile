@@ -29,13 +29,13 @@ ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
 # http://nginx.org/en/download.html
-ENV NGINX_VERSION=1.13.11
+ENV NGINX_VERSION=1.13.12
 # https://github.com/simpl/ngx_devel_kit/releases
 ENV NGINX_DEV_VERSION=0.3.0
 # http://luajit.org/download.html
 ENV LUA_JIT_VERSION=2.0.5
 # https://github.com/openresty/lua-nginx-module/releases
-ENV LUA_VERSION=0.10.11
+ENV LUA_VERSION=0.10.13
 # https://www.openssl.org/source/
 ENV OPENSSL_VERSION=1.0.2o
 # https://github.com/openresty/headers-more-nginx-module/releases
@@ -54,33 +54,38 @@ RUN mkdir -p $NGINX_TEMP_DIR
 WORKDIR $NGINX_TEMP_DIR
 
 RUN wget --no-check-certificate http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz -P $NGINX_TEMP_DIR/ && \
-        tar xzvf nginx-$NGINX_VERSION.tar.gz --strip-components=1 && \
-    wget --no-check-certificate https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz -O $NGX_DEV_MODULE_PATH.tar.gz && \
-        tar xzvf $NGX_DEV_MODULE_PATH.tar.gz && \
-    wget --no-check-certificate http://luajit.org/download/LuaJIT-$LUA_JIT_VERSION.tar.gz -O $LUAJIT_MODULE_PATH.tar.gz && \
+        tar xzvf nginx-$NGINX_VERSION.tar.gz --strip-components=1
+
+RUN wget --no-check-certificate https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz -O $NGX_DEV_MODULE_PATH.tar.gz && \
+        tar xzvf $NGX_DEV_MODULE_PATH.tar.gz
+
+RUN wget --no-check-certificate http://luajit.org/download/LuaJIT-$LUA_JIT_VERSION.tar.gz -O $LUAJIT_MODULE_PATH.tar.gz && \
         tar xzvf $LUAJIT_MODULE_PATH.tar.gz && \
         cd $LUAJIT_MODULE_PATH && \
         make && \
-        make install && \
-        cd $NGINX_TEMP_DIR && \
-    wget --no-check-certificate https://github.com/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz -O $LUA_MODULE_PATH.tar.gz && \
-        tar xzvf $LUA_MODULE_PATH.tar.gz && \
-    wget --no-check-certificate https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz -O $OPENSSL_MODULE_PATH.tar.gz && \
-        tar xzvf $OPENSSL_MODULE_PATH.tar.gz && \
-    wget --no-check-certificate https://github.com/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz -O $HEADERS_MORE_MODULE_PATH.tar.gz && \
-        tar xzvf $HEADERS_MORE_MODULE_PATH.tar.gz && \
-    wget --no-check-certificate https://github.com/pagespeed/ngx_pagespeed/archive/v$GOOGLE_PAGESPEED_VERSION.tar.gz -O $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
+        make install
+
+RUN wget --no-check-certificate https://github.com/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz -O $LUA_MODULE_PATH.tar.gz && \
+        tar xzvf $LUA_MODULE_PATH.tar.gz
+
+RUN wget --no-check-certificate https://github.com/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz -O $HEADERS_MORE_MODULE_PATH.tar.gz && \
+        tar xzvf $HEADERS_MORE_MODULE_PATH.tar.gz
+
+RUN wget --no-check-certificate https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz -O $OPENSSL_MODULE_PATH.tar.gz && \
+        tar xzvf $OPENSSL_MODULE_PATH.tar.gz
+
+RUN wget --no-check-certificate https://github.com/pagespeed/ngx_pagespeed/archive/v$GOOGLE_PAGESPEED_VERSION.tar.gz -O $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
         tar xzvf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
         cd $GOOGLE_PAGESPEED_MODULE_PATH && \
-        wget --no-check-certificate $(scripts/format_binary_url.sh PSOL_BINARY_URL) -O psol-$GOOGLE_PAGESPEED_PSOL_VERSION.tar.gz && \
-        tar xzvf psol-$GOOGLE_PAGESPEED_PSOL_VERSION.tar.gz && \
-    cd $NGINX_TEMP_DIR && \
-    ./configure \
+        wget --no-check-certificate $(scripts/format_binary_url.sh PSOL_BINARY_URL) -O psol-$GOOGLE_PAGESPEED_VERSION.tar.gz && \
+        tar xzvf psol-$GOOGLE_PAGESPEED_VERSION.tar.gz
+
+RUN ./configure \
         --prefix=$NGINX_DIR \
-        --add-module=$HEADERS_MORE_MODULE_PATH \
-        --add-module=$NGX_DEV_MODULE_PATH \
-        --add-module=$LUA_MODULE_PATH \
         --add-module=$GOOGLE_PAGESPEED_MODULE_PATH \
+        --add-module=$LUA_MODULE_PATH \
+        --add-module=$NGX_DEV_MODULE_PATH \
+        --add-module=$HEADERS_MORE_MODULE_PATH \
         --with-openssl=$OPENSSL_MODULE_PATH \
         --with-http_v2_module \
         --with-http_ssl_module \
