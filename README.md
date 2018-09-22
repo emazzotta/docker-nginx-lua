@@ -3,6 +3,7 @@
 [![Docker Layers](https://images.microbadger.com/badges/image/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Layers")
 [![Docker Version Tag](https://images.microbadger.com/badges/version/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Info")
 [![Docker Commit](https://images.microbadger.com/badges/commit/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Commit")
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Femazzotta%2Fdocker-nginx-lua.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Femazzotta%2Fdocker-nginx-lua?ref=badge_shield)
 
 # Docker Nginx Lua
 
@@ -66,3 +67,7 @@ server {
 
 [Emanuele Mazzotta](mailto:hello@mazzotta.me)
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Femazzotta%2Fdocker-nginx-lua.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Femazzotta%2Fdocker-nginx-lua?ref=badge_large)
