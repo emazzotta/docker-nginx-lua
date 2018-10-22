@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:9.5-slim
 
 MAINTAINER Emanuele Mazzotta <hello@mazzotta.me>
 
