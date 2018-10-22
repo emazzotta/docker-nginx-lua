@@ -135,9 +135,7 @@ RUN ./configure \
         --user=nginx \
         --group=nginx && \
         make && \
-        make install && \
-    cd $NGINX_DIR && \
-    rm -rf $NGINX_TEMP_DIR
+        make install
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
