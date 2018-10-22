@@ -22,7 +22,8 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
     linux-kernel-headers \
     libpcre3 \
     libpcre3-dev \
-    zlib1g-dev
+    zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 ENV NGINX_TEMP_DIR=/tmp/nginx
