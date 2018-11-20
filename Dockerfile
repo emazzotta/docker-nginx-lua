@@ -1,12 +1,11 @@
 FROM debian:9.5-slim
 
-MAINTAINER Emanuele Mazzotta <hello@mazzotta.me>
-
 ARG BUILD_DATE
 ARG VCS_REF
 ARG VERSION
 
-LABEL org.label-schema.build-date=$BUILD_DATE \
+LABEL maintainer="hello@mazzotta.me" \
+    org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="Docker Nginx LUA" \
     org.label-schema.description="Docker for Nginx with Luajit, More Headers and Google Pagespeed preinstalled" \
     org.label-schema.url="https://github.com/emazzotta/docker-nginx-lua" \
