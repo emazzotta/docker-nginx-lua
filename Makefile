@@ -14,7 +14,7 @@ all: build
 
 .PHONY: build
 build:
-	@docker build --file Dockerfile -t emazzotta/docker-nginx-lua .
+	@export IMAGE_NAME=emazzotta/docker-nginx-lua && hooks/build
 
 .PHONY: push
 push:

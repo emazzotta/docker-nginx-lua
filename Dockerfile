@@ -1,4 +1,4 @@
-FROM debian:9.5-slim
+FROM debian:9.6-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -15,7 +15,7 @@ LABEL maintainer="hello@mazzotta.me" \
     org.label-schema.version=$VERSION \
     org.label-schema.schema-version="1.0"
 
-RUN apt-get update && apt-get install -qqy --no-install-recommends \
+RUN apt-get -qq update && apt-get install -qqy --no-install-recommends \
     wget \
     build-essential \
     libpcre3-dev \
@@ -53,17 +53,17 @@ WORKDIR $NGINX_TEMP_DIR
 
 RUN wget --no-check-certificate http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
         -P $NGINX_TEMP_DIR/ && \
-        tar xzvf nginx-$NGINX_VERSION.tar.gz --strip-components=1 && \
+        tar xzf nginx-$NGINX_VERSION.tar.gz --strip-components=1 && \
         rm -rf nginx-$NGINX_VERSION.tar.gz
 
 RUN wget --no-check-certificate https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz \
         -O $NGX_DEV_MODULE_PATH.tar.gz && \
-        tar xzvf $NGX_DEV_MODULE_PATH.tar.gz && \
+        tar xzf $NGX_DEV_MODULE_PATH.tar.gz && \
         rm -rf $NGX_DEV_MODULE_PATH.tar.gz
 
 RUN wget --no-check-certificate http://luajit.org/download/LuaJIT-$LUA_JIT_VERSION.tar.gz \
         -O $LUAJIT_MODULE_PATH.tar.gz && \
-        tar xzvf $LUAJIT_MODULE_PATH.tar.gz && \
+        tar xzf $LUAJIT_MODULE_PATH.tar.gz && \
         cd $LUAJIT_MODULE_PATH && \
         make && \
         make install && \
@@ -71,25 +71,25 @@ RUN wget --no-check-certificate http://luajit.org/download/LuaJIT-$LUA_JIT_VERSI
 
 RUN wget --no-check-certificate https://github.com/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz \
         -O $LUA_MODULE_PATH.tar.gz && \
-        tar xzvf $LUA_MODULE_PATH.tar.gz && \
+        tar xzf $LUA_MODULE_PATH.tar.gz && \
         rm -rf $LUA_MODULE_PATH.tar.gz
 
 RUN wget --no-check-certificate https://github.com/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz \
         -O $HEADERS_MORE_MODULE_PATH.tar.gz && \
-        tar xzvf $HEADERS_MORE_MODULE_PATH.tar.gz && \
+        tar xzf $HEADERS_MORE_MODULE_PATH.tar.gz && \
         rm -rf $HEADERS_MORE_MODULE_PATH.tar.gz
 
 RUN wget --no-check-certificate https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz \
         -O $OPENSSL_MODULE_PATH.tar.gz && \
-        tar xzvf $OPENSSL_MODULE_PATH.tar.gz && \
+        tar xzf $OPENSSL_MODULE_PATH.tar.gz && \
         rm -rf $OPENSSL_MODULE_PATH.tar.gz
 
 RUN wget --no-check-certificate https://github.com/pagespeed/ngx_pagespeed/archive/v$GOOGLE_PAGESPEED_VERSION.tar.gz \
         -O $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
-        tar xzvf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
+        tar xzf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
         cd $GOOGLE_PAGESPEED_MODULE_PATH && \
         wget --no-check-certificate $(scripts/format_binary_url.sh PSOL_BINARY_URL) -O psol-$GOOGLE_PAGESPEED_VERSION.tar.gz && \
-        tar xzvf psol-$GOOGLE_PAGESPEED_VERSION.tar.gz && \
+        tar xzf psol-$GOOGLE_PAGESPEED_VERSION.tar.gz && \
         rm -rf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
         rm -rf psol-$GOOGLE_PAGESPEED_VERSION.tar.gz
 
