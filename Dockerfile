@@ -19,7 +19,6 @@ RUN apt-get update && apt-get install -qqy --no-install-recommends \
     wget \
     build-essential \
     linux-kernel-headers \
-    libpcre3 \
     libpcre3-dev \
     zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
