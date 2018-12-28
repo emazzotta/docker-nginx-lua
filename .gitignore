@@ -43,6 +43,7 @@ $RECYCLE.BIN
 *.obj
 *.out
 *.p12
+*.paw
 *.pbxuser
 *.pch
 *.pid
