@@ -27,15 +27,15 @@ ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
 # http://nginx.org/en/download.html
-ENV NGINX_VERSION=1.17.0
+ENV NGINX_VERSION=1.17.3
 # https://github.com/simpl/ngx_devel_kit/releases
-ENV NGINX_DEV_VERSION=0.3.1rc1
+ENV NGINX_DEV_VERSION=0.3.1
 # http://luajit.org/download.html
 ENV LUA_JIT_VERSION=2.0.5
 # https://github.com/openresty/lua-nginx-module/releases
 ENV LUA_VERSION=0.10.15
 # https://www.openssl.org/source/
-ENV OPENSSL_VERSION=1.1.1c
+ENV OPENSSL_VERSION=1.1.1d
 # https://github.com/openresty/headers-more-nginx-module/releases
 ENV HEADERS_MORE_VERSION=0.33
 # https://github.com/pagespeed/ngx_pagespeed/releases
