@@ -1,4 +1,4 @@
-FROM debian:9.6-slim
+FROM debian:10.3-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -27,7 +27,7 @@ ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
 # http://nginx.org/en/download.html
-ENV NGINX_VERSION=1.17.7
+ENV NGINX_VERSION=1.17.8
 # https://github.com/simpl/ngx_devel_kit/releases
 ENV NGINX_DEV_VERSION=0.3.1
 # http://luajit.org/download.html
