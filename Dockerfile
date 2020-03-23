@@ -6,8 +6,8 @@ ARG VERSION
 
 LABEL maintainer="hello@mazzotta.me" \
     org.label-schema.build-date=$BUILD_DATE \
-    org.label-schema.name="Docker Nginx LUA" \
-    org.label-schema.description="Docker for Nginx with Luajit, More Headers and Google Pagespeed preinstalled" \
+    org.label-schema.name="Docker Nginx" \
+    org.label-schema.description="Docker for Nginx with More Headers and Google Pagespeed preinstalled" \
     org.label-schema.url="https://github.com/emazzotta/docker-nginx-lua" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vcs-url="https://github.com/emazzotta/docker-nginx-lua" \
@@ -27,13 +27,9 @@ ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
 # http://nginx.org/en/download.html
-ENV NGINX_VERSION=1.17.8
+ENV NGINX_VERSION=1.17.9
 # https://github.com/simpl/ngx_devel_kit/releases
 ENV NGINX_DEV_VERSION=0.3.1
-# http://luajit.org/download.html
-ENV LUA_JIT_VERSION=2.0.5
-# https://github.com/openresty/lua-nginx-module/releases
-ENV LUA_VERSION=0.10.15
 # https://www.openssl.org/source/
 ENV OPENSSL_VERSION=1.1.1d
 # https://github.com/openresty/headers-more-nginx-module/releases
@@ -42,8 +38,6 @@ ENV HEADERS_MORE_VERSION=0.33
 ENV GOOGLE_PAGESPEED_VERSION=1.12.34.3-stable
 
 ENV NGX_DEV_MODULE_PATH=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
-ENV LUAJIT_MODULE_PATH=$NGINX_TEMP_DIR/LuaJIT-$LUA_JIT_VERSION
-ENV LUA_MODULE_PATH=$NGINX_TEMP_DIR/lua-nginx-module-$LUA_VERSION
 ENV OPENSSL_MODULE_PATH=$NGINX_TEMP_DIR/openssl-$OPENSSL_VERSION
 ENV HEADERS_MORE_MODULE_PATH=$NGINX_TEMP_DIR/headers-more-nginx-module-$HEADERS_MORE_VERSION
 ENV GOOGLE_PAGESPEED_MODULE_PATH=$NGINX_TEMP_DIR/incubator-pagespeed-ngx-$GOOGLE_PAGESPEED_VERSION
@@ -60,19 +54,6 @@ RUN wget --no-check-certificate https://github.com/simpl/ngx_devel_kit/archive/v
         -O $NGX_DEV_MODULE_PATH.tar.gz && \
         tar xzf $NGX_DEV_MODULE_PATH.tar.gz && \
         rm -rf $NGX_DEV_MODULE_PATH.tar.gz
-
-RUN wget --no-check-certificate http://luajit.org/download/LuaJIT-$LUA_JIT_VERSION.tar.gz \
-        -O $LUAJIT_MODULE_PATH.tar.gz && \
-        tar xzf $LUAJIT_MODULE_PATH.tar.gz && \
-        cd $LUAJIT_MODULE_PATH && \
-        make && \
-        make install && \
-        rm -rf $LUAJIT_MODULE_PATH.tar.gz
-
-RUN wget --no-check-certificate https://github.com/chaoslawful/lua-nginx-module/archive/v$LUA_VERSION.tar.gz \
-        -O $LUA_MODULE_PATH.tar.gz && \
-        tar xzf $LUA_MODULE_PATH.tar.gz && \
-        rm -rf $LUA_MODULE_PATH.tar.gz
 
 RUN wget --no-check-certificate https://github.com/openresty/headers-more-nginx-module/archive/v$HEADERS_MORE_VERSION.tar.gz \
         -O $HEADERS_MORE_MODULE_PATH.tar.gz && \
@@ -96,7 +77,6 @@ RUN wget --no-check-certificate https://github.com/pagespeed/ngx_pagespeed/archi
 RUN ./configure \
         --prefix=$NGINX_DIR \
         --add-module=$GOOGLE_PAGESPEED_MODULE_PATH \
-        --add-module=$LUA_MODULE_PATH \
         --add-module=$NGX_DEV_MODULE_PATH \
         --add-module=$HEADERS_MORE_MODULE_PATH \
         --with-openssl=$OPENSSL_MODULE_PATH \
