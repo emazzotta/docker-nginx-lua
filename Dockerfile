@@ -37,6 +37,7 @@ ENV HEADERS_MORE_VERSION=0.33
 # https://github.com/pagespeed/ngx_pagespeed/releases
 ENV GOOGLE_PAGESPEED_VERSION=1.12.34.3-stable
 
+ENV NGINX_ACCEPT_LANGUAGE_MODULE_PATH=$NGINX_TEMP_DIR/nginx_accept_language_module-master
 ENV NGX_DEV_MODULE_PATH=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
 ENV OPENSSL_MODULE_PATH=$NGINX_TEMP_DIR/openssl-$OPENSSL_VERSION
 ENV HEADERS_MORE_MODULE_PATH=$NGINX_TEMP_DIR/headers-more-nginx-module-$HEADERS_MORE_VERSION
@@ -49,6 +50,11 @@ RUN wget --no-check-certificate http://nginx.org/download/nginx-$NGINX_VERSION.t
         -P $NGINX_TEMP_DIR/ && \
         tar xzf nginx-$NGINX_VERSION.tar.gz --strip-components=1 && \
         rm -rf nginx-$NGINX_VERSION.tar.gz
+
+RUN wget --no-check-certificate https://github.com/giom/nginx_accept_language_module/archive/master.tar.gz \
+        -O $NGINX_ACCEPT_LANGUAGE_MODULE_PATH.tar.gz && \
+        tar xzf $NGINX_ACCEPT_LANGUAGE_MODULE_PATH.tar.gz && \
+        rm -rf $NGINX_ACCEPT_LANGUAGE_MODULE_PATH.tar.gz
 
 RUN wget --no-check-certificate https://github.com/simpl/ngx_devel_kit/archive/v$NGINX_DEV_VERSION.tar.gz \
         -O $NGX_DEV_MODULE_PATH.tar.gz && \
@@ -76,6 +82,7 @@ RUN wget --no-check-certificate https://github.com/pagespeed/ngx_pagespeed/archi
 
 RUN ./configure \
         --prefix=$NGINX_DIR \
+        --add-module=$NGINX_ACCEPT_LANGUAGE_MODULE_PATH \
         --add-module=$GOOGLE_PAGESPEED_MODULE_PATH \
         --add-module=$NGX_DEV_MODULE_PATH \
         --add-module=$HEADERS_MORE_MODULE_PATH \

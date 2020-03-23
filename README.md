@@ -6,10 +6,9 @@
 [![Docker Version Tag](https://images.microbadger.com/badges/version/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Info")
 [![Docker Commit](https://images.microbadger.com/badges/commit/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Commit")
 
-# Docker Nginx Lua
+# Docker Nginx
 
 A Docker project for a recent version of the Nginx webserver and the module `more_set_headers` to specify custom headers such as a server name like `1337-server` instead of `nginx` or `apache`.
-This also contains LuaJIT so that lua can be used in nginx configurations.
 Another module this nginx build contains is [Google's ngx_pagespeed module](https://github.com/pagespeed/ngx_pagespeed)
 
 ## Usage
@@ -17,6 +16,10 @@ Another module this nginx build contains is [Google's ngx_pagespeed module](http
 ```bash
 docker run -v <my_conf_dir>:/etc/nginx/conf.d -v /var/ngx_pagespeed_cache -p 80:80 emazzotta/docker-nginx-lua
 ```
+
+## Note
+
+While this project is called "docker-nginx-lua" I've dropped the support for LuaJit, see https://github.com/emazzotta/docker-nginx-lua/issues/3
 
 ## Examples
 
@@ -30,22 +33,17 @@ http {
 }
 ```
 
-### Lua
+### Accept Language Module
 
 ```
 server {   
     ...
     location ~ / {
-        rewrite_by_lua '
-        for lang in (ngx.var.http_accept_language .. ","):gmatch("([^,]*),") do
-            if string.sub(lang, 0, 2) == "en" then
-                ngx.redirect("/en/")
-            end
-            if string.sub(lang, 0, 2) == "de" then
-                ngx.redirect("/de/")
-            end
-        end
-        ngx.redirect("/en/")';
+        set_from_accept_language $lang en de;
+        if ( $request_uri ~ ^/$  ) {
+            rewrite ^/$ /$lang redirect;
+            break;
+        }
     }
     ...
 }
