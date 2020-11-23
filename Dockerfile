@@ -27,11 +27,11 @@ ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
 # http://nginx.org/en/download.html
-ENV NGINX_VERSION=1.19.1
+ENV NGINX_VERSION=1.19.4
 # https://github.com/simpl/ngx_devel_kit/releases
 ENV NGINX_DEV_VERSION=0.3.1
 # https://www.openssl.org/source/
-ENV OPENSSL_VERSION=1.1.1g
+ENV OPENSSL_VERSION=1.1.1h
 # https://github.com/openresty/headers-more-nginx-module/releases
 ENV HEADERS_MORE_VERSION=0.33
 # https://github.com/pagespeed/ngx_pagespeed/releases
