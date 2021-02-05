@@ -1,8 +1,6 @@
-[![Build Status](https://travis-ci.org/emazzotta/docker-nginx-lua.svg?branch=master)](https://travis-ci.org/emazzotta/docker-nginx-lua)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Femazzotta%2Fdocker-nginx-lua.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Femazzotta%2Fdocker-nginx-lua?ref=badge_shield)
+[![Build Status](https://github.com/emazzotta/docker-nginx-lua/workflows/Docker%20Build%20&%20Push/badge.svg)](https://github.com/emazzotta/docker-nginx-lua/actions)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](https://emanuelemazzotta.com/mit-license)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-lua.svg?style=flat)](https://hub.docker.com/r/emazzotta/docker-nginx-lua/)
-[![Docker Layers](https://images.microbadger.com/badges/image/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Layers")
 [![Docker Version Tag](https://images.microbadger.com/badges/version/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Info")
 [![Docker Commit](https://images.microbadger.com/badges/commit/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Commit")
 
