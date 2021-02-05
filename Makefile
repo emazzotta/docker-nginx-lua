@@ -23,4 +23,3 @@ push:
 .PHONY: run
 run:
 	@docker run --rm emazzotta/docker-nginx-lua
-
