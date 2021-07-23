@@ -1,8 +1,6 @@
 [![Build Status](https://github.com/emazzotta/docker-nginx-lua/workflows/Docker%20Build%20&%20Push/badge.svg)](https://github.com/emazzotta/docker-nginx-lua/actions)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](https://emanuelemazzotta.com/mit-license)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emazzotta/docker-nginx-lua.svg?style=flat)](https://hub.docker.com/r/emazzotta/docker-nginx-lua/)
-[![Docker Version Tag](https://images.microbadger.com/badges/version/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Info")
-[![Docker Commit](https://images.microbadger.com/badges/commit/emazzotta/docker-nginx-lua.svg?style=flat)](https://microbadger.com/images/emazzotta/docker-nginx-lua "Microbadger Docker Commit")
 
 # Docker Nginx
 
