@@ -2,9 +2,7 @@
 #
 # All commands necessary to go from development to release candidate should be here.
 
-CURRENT_DIR = $(shell pwd)
-export PATH := $CURRENT_DIR:$(PATH)
-export PYTHONPATH := $CURRENT_DIR/api:$(PYTHONPATH)
+ROOT_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # -----------------------------------------------------------------------------
 # BUILD
