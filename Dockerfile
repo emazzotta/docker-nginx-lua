@@ -16,9 +16,10 @@ LABEL maintainer="hello@mazzotta.me" \
     org.label-schema.schema-version="1.0"
 
 RUN apt-get -qq update && apt-get install -qqy --no-install-recommends \
-    wget \
     build-essential \
     libpcre3-dev \
+    uuid-dev \
+    wget \
     zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
 
@@ -35,7 +36,7 @@ ENV OPENSSL_VERSION=1.1.1n
 # https://github.com/openresty/headers-more-nginx-module/tags
 ENV HEADERS_MORE_VERSION=0.33
 # https://github.com/pagespeed/ngx_pagespeed/releases
-ENV GOOGLE_PAGESPEED_VERSION=1.12.34.3-stable
+ENV GOOGLE_PAGESPEED_VERSION=1.14.33.1-RC1
 
 ENV NGINX_ACCEPT_LANGUAGE_MODULE_PATH=$NGINX_TEMP_DIR/nginx_accept_language_module-master
 ENV NGX_DEV_MODULE_PATH=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
