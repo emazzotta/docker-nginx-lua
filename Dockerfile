@@ -28,13 +28,13 @@ ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
 # http://nginx.org/en/download.html
-ENV NGINX_VERSION=1.21.6
+ENV NGINX_VERSION=1.22.1
 # https://github.com/simpl/ngx_devel_kit/releases
-ENV NGINX_DEV_VERSION=0.3.1
+ENV NGINX_DEV_VERSION=0.3.2
 # https://www.openssl.org/source/
-ENV OPENSSL_VERSION=1.1.1n
+ENV OPENSSL_VERSION=1.1.1t
 # https://github.com/openresty/headers-more-nginx-module/tags
-ENV HEADERS_MORE_VERSION=0.33
+ENV HEADERS_MORE_VERSION=0.34
 # https://github.com/pagespeed/ngx_pagespeed/releases
 ENV GOOGLE_PAGESPEED_VERSION=1.14.33.1-RC1
 
