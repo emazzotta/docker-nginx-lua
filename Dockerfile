@@ -12,8 +12,7 @@ RUN apt-get update && apt-get install -y \
 FROM dependencies as builder
 
 # http://nginx.org/en/download.html
-# ENV NGINX_VERSION=1.25.3
-ENV NGINX_VERSION=1.22.1
+ENV NGINX_VERSION=1.23.1
 # https://github.com/simpl/ngx_devel_kit/releases
 ENV NGINX_DEV_VERSION=0.3.2
 # https://www.openssl.org/source/
@@ -23,7 +22,7 @@ ENV HEADERS_MORE_VERSION=0.35
 # https://github.com/pagespeed/ngx_pagespeed/releases
 ENV GOOGLE_PAGESPEED_VERSION=1.14.33.1-RC1
 # https://archive.apache.org/dist/incubator/pagespeed/
-ENV GOOGLE_PAGESPEED_PSOL_VERSION=1.14.36.1
+ENV PAGESPEED_OPTIMISATION_LIBRARY_VERSION=jammy
 
 ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 ENV NGINX_TEMP_DIR=/tmp/nginx
@@ -36,12 +35,21 @@ ENV HEADERS_MORE_MODULE_PATH=$NGINX_TEMP_DIR/headers-more-nginx-module-$HEADERS_
 ENV GOOGLE_PAGESPEED_MODULE_PATH=$NGINX_TEMP_DIR/incubator-pagespeed-ngx-$GOOGLE_PAGESPEED_VERSION
 
 RUN mkdir -p $NGINX_TEMP_DIR
+RUN mkdir -p $GOOGLE_PAGESPEED_MODULE_PATH
+COPY archive/psol-$PAGESPEED_OPTIMISATION_LIBRARY_VERSION.tar.gz $GOOGLE_PAGESPEED_MODULE_PATH
+
 WORKDIR $NGINX_TEMP_DIR
 
 RUN wget https://nginx.org/download/nginx-$NGINX_VERSION.tar.gz \
         -P $NGINX_TEMP_DIR/ && \
         tar xzf nginx-$NGINX_VERSION.tar.gz --strip-components=1 && \
         rm -rf nginx-$NGINX_VERSION.tar.gz
+
+RUN wget https://github.com/pagespeed/ngx_pagespeed/archive/v$GOOGLE_PAGESPEED_VERSION.tar.gz \
+        -O $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
+        tar xzf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
+        cd $GOOGLE_PAGESPEED_MODULE_PATH && \
+        tar xzf psol-$PAGESPEED_OPTIMISATION_LIBRARY_VERSION.tar.gz
 
 RUN wget https://github.com/giom/nginx_accept_language_module/archive/master.tar.gz \
         -O $NGINX_ACCEPT_LANGUAGE_MODULE_PATH.tar.gz && \
@@ -59,13 +67,6 @@ RUN wget https://github.com/openresty/headers-more-nginx-module/archive/v$HEADER
 RUN wget https://openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz \
         -O $OPENSSL_MODULE_PATH.tar.gz && \
         tar xzf $OPENSSL_MODULE_PATH.tar.gz
-
-RUN wget https://github.com/pagespeed/ngx_pagespeed/archive/v$GOOGLE_PAGESPEED_VERSION.tar.gz \
-        -O $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
-        tar xzf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
-        cd $GOOGLE_PAGESPEED_MODULE_PATH && \
-        wget https://archive.apache.org/dist/incubator/pagespeed/1.14.36.1/x64/psol-1.14.36.1-apache-incubating-x64.tar.gz -O psol-$GOOGLE_PAGESPEED_VERSION.tar.gz && \
-        tar xzf psol-$GOOGLE_PAGESPEED_VERSION.tar.gz
 
 RUN ./configure \
     --prefix=$NGINX_DIR \
@@ -104,9 +105,10 @@ RUN ./configure \
     --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
     --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
     --user=nginx \
-    --group=nginx && \
-    make && \
-    make install
+    --group=nginx
+
+RUN make
+RUN make install
 
 FROM debian:stable-slim
 
