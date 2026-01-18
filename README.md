@@ -5,12 +5,11 @@
 # Docker Nginx
 
 A Docker project for a recent version of the Nginx webserver and the module `more_set_headers` to specify custom headers such as a server name like `1337-server` instead of `nginx` or `apache`.
-Another module this nginx build contains is [Google's ngx_pagespeed module](https://github.com/pagespeed/ngx_pagespeed)
 
 ## Usage
 
 ```bash
-docker run -v <my_conf_dir>:/etc/nginx/conf.d -v /var/ngx_pagespeed_cache -p 80:80 emazzotta/docker-nginx-lua
+docker run -v <my_conf_dir>:/etc/nginx/conf.d -p 80:80 emazzotta/docker-nginx-lua
 ```
 
 ## Note
@@ -32,7 +31,7 @@ http {
 ### Accept Language Module
 
 ```
-server {   
+server {
     ...
     location ~ / {
         set_from_accept_language $lang en de;
@@ -41,19 +40,6 @@ server {
             break;
         }
     }
-    ...
-}
-```
-
-### Pagespeed
-
-```
-server {
-    ...
-    pagespeed on;
-    pagespeed FileCachePath /var/cache/nginx;
-    pagespeed XHeaderValue "Pagespeed";
-    pagespeed RewriteLevel CoreFilters;
     ...
 }
 ```

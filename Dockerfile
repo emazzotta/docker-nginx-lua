@@ -7,7 +7,7 @@ ARG VERSION
 LABEL maintainer="hello@mazzotta.me" \
     org.label-schema.build-date=$BUILD_DATE \
     org.label-schema.name="Docker Nginx" \
-    org.label-schema.description="Docker for Nginx with More Headers and Google Pagespeed preinstalled" \
+    org.label-schema.description="Docker for Nginx with More Headers module preinstalled" \
     org.label-schema.url="https://github.com/emazzotta/docker-nginx-lua" \
     org.label-schema.vcs-ref=$VCS_REF \
     org.label-schema.vcs-url="https://github.com/emazzotta/docker-nginx-lua" \
@@ -35,14 +35,11 @@ ENV NGINX_DEV_VERSION=0.3.2
 ENV OPENSSL_VERSION=1.1.1t
 # https://github.com/openresty/headers-more-nginx-module/tags
 ENV HEADERS_MORE_VERSION=0.34
-# https://github.com/pagespeed/ngx_pagespeed/releases
-ENV GOOGLE_PAGESPEED_VERSION=1.14.33.1-RC1
 
 ENV NGINX_ACCEPT_LANGUAGE_MODULE_PATH=$NGINX_TEMP_DIR/nginx_accept_language_module-master
 ENV NGX_DEV_MODULE_PATH=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
 ENV OPENSSL_MODULE_PATH=$NGINX_TEMP_DIR/openssl-$OPENSSL_VERSION
 ENV HEADERS_MORE_MODULE_PATH=$NGINX_TEMP_DIR/headers-more-nginx-module-$HEADERS_MORE_VERSION
-ENV GOOGLE_PAGESPEED_MODULE_PATH=$NGINX_TEMP_DIR/incubator-pagespeed-ngx-$GOOGLE_PAGESPEED_VERSION
 
 RUN mkdir -p $NGINX_TEMP_DIR
 WORKDIR $NGINX_TEMP_DIR
@@ -72,19 +69,9 @@ RUN wget --no-check-certificate https://openssl.org/source/openssl-$OPENSSL_VERS
         tar xzf $OPENSSL_MODULE_PATH.tar.gz && \
         rm -rf $OPENSSL_MODULE_PATH.tar.gz
 
-RUN wget --no-check-certificate https://github.com/pagespeed/ngx_pagespeed/archive/v$GOOGLE_PAGESPEED_VERSION.tar.gz \
-        -O $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
-        tar xzf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
-        cd $GOOGLE_PAGESPEED_MODULE_PATH && \
-        wget --no-check-certificate $(scripts/format_binary_url.sh PSOL_BINARY_URL) -O psol-$GOOGLE_PAGESPEED_VERSION.tar.gz && \
-        tar xzf psol-$GOOGLE_PAGESPEED_VERSION.tar.gz && \
-        rm -rf $GOOGLE_PAGESPEED_MODULE_PATH.tar.gz && \
-        rm -rf psol-$GOOGLE_PAGESPEED_VERSION.tar.gz
-
 RUN ./configure \
         --prefix=$NGINX_DIR \
         --add-module=$NGINX_ACCEPT_LANGUAGE_MODULE_PATH \
-        --add-module=$GOOGLE_PAGESPEED_MODULE_PATH \
         --add-module=$NGX_DEV_MODULE_PATH \
         --add-module=$HEADERS_MORE_MODULE_PATH \
         --with-openssl=$OPENSSL_MODULE_PATH \
