@@ -23,7 +23,6 @@ RUN apt-get -qq update && apt-get install -qqy --no-install-recommends \
     zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
 
-ENV LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
 ENV NGINX_TEMP_DIR=/tmp/nginx
 ENV NGINX_DIR=/etc/nginx
 
