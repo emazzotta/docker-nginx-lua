@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 debian:stable-slim
+FROM debian:stable-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
