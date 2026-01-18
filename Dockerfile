@@ -17,7 +17,7 @@ LABEL maintainer="hello@mazzotta.me" \
 
 RUN apt-get -qq update && apt-get install -qqy --no-install-recommends \
     build-essential \
-    libpcre3-dev \
+    libpcre2-dev \
     uuid-dev \
     wget \
     zlib1g-dev && \
