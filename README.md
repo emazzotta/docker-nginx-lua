@@ -12,10 +12,6 @@ A Docker project for a recent version of the Nginx webserver and the module `mor
 docker run -v <my_conf_dir>:/etc/nginx/conf.d -p 80:80 emazzotta/docker-nginx-lua
 ```
 
-## Note
-
-While this project is called "docker-nginx-lua" I've dropped the support for LuaJit, see https://github.com/emazzotta/docker-nginx-lua/issues/3
-
 ## Examples
 
 ### More Set Headers
@@ -23,7 +19,7 @@ While this project is called "docker-nginx-lua" I've dropped the support for Lua
 ```
 http {
     ...
-    more_set_headers 'Server: 1337-server';
+    more_set_headers 'Server: my-custom-server';
     ...
 }
 ```

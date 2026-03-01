@@ -1,0 +1,7 @@
+services:
+  docker-nginx-lua:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./example/conf.d:/etc/nginx/conf.d:ro
