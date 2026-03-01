@@ -12,12 +12,9 @@ all: build
 
 .PHONY: build
 build:
-	@docker build -t emazzotta/docker-nginx-lua .
-
-.PHONY: push
-push:
-	@docker push emazzotta/docker-nginx-lua
+	@docker compose build
 
 .PHONY: run
 run:
-	@docker run --rm emazzotta/docker-nginx-lua
+	@echo "Running at http://localhost:8080"
+	@docker compose up
