@@ -31,7 +31,7 @@ ENV LUA_RESTY_CORE_VERSION=0.1.28
 # https://github.com/openresty/lua-resty-lrucache/tags
 ENV LUA_RESTY_LRUCACHE_VERSION=0.13
 # https://github.com/apache/incubator-pagespeed-ngx/tags
-ENV NPS_VERSION=1.14.33.1-RC1
+ENV NPS_VERSION=1.13.35.2-stable
 
 ENV NGINX_ACCEPT_LANGUAGE_MODULE_PATH=$NGINX_TEMP_DIR/nginx_accept_language_module-master
 ENV NGX_DEV_MODULE_PATH=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
