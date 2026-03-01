@@ -156,7 +156,7 @@ LABEL maintainer="hello@mazzotta.me" \
     org.label-schema.vcs-url="https://github.com/emazzotta/docker-nginx-lua" \
     org.label-schema.vendor="Emanuele Mazzotta" \
     org.label-schema.version=$VERSION \
-    org.label-schema.schema-version="1.0"
+    org.label-schema.schema-version="2.0"
 
 RUN apt-get -qq update && apt-get install -qqy --no-install-recommends \
     libpcre2-8-0 \
