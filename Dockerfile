@@ -100,6 +100,7 @@ RUN ARCH="${TARGETARCH:-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')}" &
             -O $NPS_MODULE_PATH.tar.gz && \
         tar xzf $NPS_MODULE_PATH.tar.gz && \
         rm -f $NPS_MODULE_PATH.tar.gz && \
+        sed -i 's/ -Werror\b/ /g' $NPS_MODULE_PATH/config && \
         PSOL_URL=$(bash $NPS_MODULE_PATH/scripts/format_binary_url.sh $NPS_MODULE_PATH/PSOL_BINARY_URL) && \
         wget -q "$PSOL_URL" -O /tmp/psol.tar.gz && \
         tar xzf /tmp/psol.tar.gz -C $NPS_MODULE_PATH && \
