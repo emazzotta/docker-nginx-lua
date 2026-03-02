@@ -1,11 +1,8 @@
 FROM debian:stable-slim AS builder
 
-ARG TARGETARCH
-
 RUN apt-get -qq update && apt-get install -qqy --no-install-recommends \
     build-essential \
     ca-certificates \
-    uuid-dev \
     libpcre2-dev \
     wget \
     zlib1g-dev && \
@@ -30,9 +27,6 @@ ENV LUA_NGX_VERSION=0.10.26
 ENV LUA_RESTY_CORE_VERSION=0.1.28
 # https://github.com/openresty/lua-resty-lrucache/tags
 ENV LUA_RESTY_LRUCACHE_VERSION=0.13
-# https://github.com/apache/incubator-pagespeed-ngx/tags
-ENV NPS_VERSION=1.13.35.2-stable
-
 ENV NGINX_ACCEPT_LANGUAGE_MODULE_PATH=$NGINX_TEMP_DIR/nginx_accept_language_module-master
 ENV NGX_DEV_MODULE_PATH=$NGINX_TEMP_DIR/ngx_devel_kit-$NGINX_DEV_VERSION
 ENV OPENSSL_MODULE_PATH=$NGINX_TEMP_DIR/openssl-$OPENSSL_VERSION
@@ -41,7 +35,6 @@ ENV LUAJIT_PATH=$NGINX_TEMP_DIR/luajit2-$LUAJIT_VERSION
 ENV LUA_NGX_MODULE_PATH=$NGINX_TEMP_DIR/lua-nginx-module-$LUA_NGX_VERSION
 ENV LUA_RESTY_CORE_PATH=$NGINX_TEMP_DIR/lua-resty-core-$LUA_RESTY_CORE_VERSION
 ENV LUA_RESTY_LRUCACHE_PATH=$NGINX_TEMP_DIR/lua-resty-lrucache-$LUA_RESTY_LRUCACHE_VERSION
-ENV NPS_MODULE_PATH=$NGINX_TEMP_DIR/incubator-pagespeed-ngx-$NPS_VERSION
 
 ENV LUAJIT_LIB=/usr/local/lib
 ENV LUAJIT_INC=/usr/local/include/luajit-2.1
@@ -94,22 +87,6 @@ RUN wget -q https://github.com/openresty/lua-resty-lrucache/archive/v$LUA_RESTY_
         tar xzf $LUA_RESTY_LRUCACHE_PATH.tar.gz && \
         rm -f $LUA_RESTY_LRUCACHE_PATH.tar.gz
 
-RUN ARCH="${TARGETARCH:-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')}" && \
-    if [ "$ARCH" = "amd64" ]; then \
-        wget -q https://github.com/apache/incubator-pagespeed-ngx/archive/v$NPS_VERSION.tar.gz \
-            -O $NPS_MODULE_PATH.tar.gz && \
-        tar xzf $NPS_MODULE_PATH.tar.gz && \
-        rm -f $NPS_MODULE_PATH.tar.gz && \
-        sed -i 's/ -Werror\b/ /g' $NPS_MODULE_PATH/config && \
-        PSOL_URL=$(bash $NPS_MODULE_PATH/scripts/format_binary_url.sh $NPS_MODULE_PATH/PSOL_BINARY_URL) && \
-        wget -q "$PSOL_URL" -O /tmp/psol.tar.gz && \
-        tar xzf /tmp/psol.tar.gz -C $NPS_MODULE_PATH && \
-        rm -f /tmp/psol.tar.gz && \
-        echo "--add-module=$NPS_MODULE_PATH" > /tmp/nps_opt; \
-    else \
-        printf '' > /tmp/nps_opt; \
-    fi
-
 RUN cd $LUAJIT_PATH && make && make install && ldconfig
 
 RUN ./configure \
@@ -118,7 +95,6 @@ RUN ./configure \
         --add-module=$NGX_DEV_MODULE_PATH \
         --add-module=$HEADERS_MORE_MODULE_PATH \
         --add-module=$LUA_NGX_MODULE_PATH \
-        $(cat /tmp/nps_opt) \
         --with-openssl=$OPENSSL_MODULE_PATH \
         --with-http_v2_module \
         --with-http_ssl_module \
@@ -183,7 +159,6 @@ LABEL maintainer="hello@mazzotta.me" \
 
 RUN apt-get -qq update && apt-get install -qqy --no-install-recommends \
     libpcre2-8-0 \
-    libuuid1 \
     zlib1g && \
     rm -rf /var/lib/apt/lists/*
 
@@ -193,7 +168,7 @@ COPY --from=builder /usr/local/lib/libluajit-5.1.so* /usr/local/lib/
 COPY --from=builder /usr/local/share/lua /usr/local/share/lua
 
 RUN ldconfig && \
-    mkdir -p /var/log/nginx /var/cache/nginx /var/cache/pagespeed /etc/nginx/conf.d && \
+    mkdir -p /var/log/nginx /var/cache/nginx /etc/nginx/conf.d && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 

@@ -1,6 +1,5 @@
 services:
   docker-nginx-lua:
-    platform: linux/amd64
     build: .
     ports:
       - "8080:80"
